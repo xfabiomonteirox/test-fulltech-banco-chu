@@ -3,6 +3,26 @@ version: '3.4'
 services:
   bancochu.api:
     image: ${DOCKER_REGISTRY-}bancochuapi
+    container_name: banco-chu.Api
+    environment:
+      - TZ=America/Sao_Paulo
     build:
       context: .
       dockerfile: BancoChu.API/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+  
+  banco-chu.database:
+    image: sqlite:latest
+    volumes:
+      - sqlite-data:/banco-chu
+    restart: always
+    ports:
+      - "5432:5432"    
+      
+  bancho-chu.cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6739:6379'
