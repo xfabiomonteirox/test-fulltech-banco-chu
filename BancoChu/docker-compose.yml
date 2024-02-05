@@ -3,7 +3,7 @@ version: '3.4'
 services:
   bancochu.api:
     image: ${DOCKER_REGISTRY-}bancochuapi
-    container_name: banco-chu.Api
+    container_name: bancochu.api
     environment:
       - TZ=America/Sao_Paulo
     build:
@@ -13,16 +13,21 @@ services:
       - "5000:5000"
       - "5001:5001"
   
-  banco-chu.database:
-    image: sqlite:latest
+  bancochu.database:
+    image: postgres:latest
+    container_name: bancochu.database
+    environment:
+      - POSTGRES_DB=bancochu
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     volumes:
-      - sqlite-data:/banco-chu
-    restart: always
+      - ./.containers/bancochu-db:/var/lib/postgresql/data
     ports:
-      - "5432:5432"    
+      - 5432:5432    
       
-  bancho-chu.cache:
+  banchochu.cache:
     image: redis:latest
+    container_name: bancochu.cache
     restart: always
     ports:
-      - '6739:6379'
+      - '6739:6379'   
