@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  bancochu.api:
+    image: ${DOCKER_REGISTRY-}bancochuapi
+    build:
+      context: .
+      dockerfile: BancoChu.API/Dockerfile
