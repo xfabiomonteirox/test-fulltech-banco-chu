@@ -6,9 +6,10 @@ using System.Text;
 
 namespace BancoChu.API.TokenSettings
 {
-    public class JwtOptionsSettings(JwtOptions jwtOptions) : IPostConfigureOptions<JwtBearerOptions>
+    public class JwtOptionsSettings(IOptions<JwtOptions> jwtOptions)
+        : IPostConfigureOptions<JwtBearerOptions>
     {
-        private readonly JwtOptions _jwtOptions = jwtOptions;
+        private readonly JwtOptions _jwtOptions = jwtOptions.Value;
 
         public void PostConfigure(string? name, JwtBearerOptions options)
         {
