@@ -1,4 +1,5 @@
-﻿using BancoChu.Domain.Entities;
+﻿using BancoChu.Application.Abstractions;
+using BancoChu.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,7 +8,8 @@ using System.Text;
 
 namespace BancoChu.Infrastructure.Authentication;
 
-internal class JwtProvider(IOptions<JwtOptions> options)
+public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
+
 {
     private readonly JwtOptions _options = options.Value;
 
