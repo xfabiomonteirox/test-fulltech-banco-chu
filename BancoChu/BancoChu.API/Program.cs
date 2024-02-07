@@ -1,24 +1,30 @@
 using BancoChu.API;
-using BancoChu.API.TokenSettings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureOptions<GetJwtSettings>();
-builder.Services.ConfigureOptions<JwtOptionsSettings>();
+builder.Services.AddApplication();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddBearerToken();
+builder.Services.AddInfrastructure();
+
+builder.Services.AddPersistence(builder.Configuration);
+
+builder.Services.AddAuthenticationAndAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.ApplyMigrations();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapBankChuEndpoints();
 
