@@ -2,7 +2,7 @@
 
 namespace BancoChu.Persistence;
 
-internal class UnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
+public class UnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
 {
     private readonly ApplicationDbContext _dbContext = dbContext;
 
