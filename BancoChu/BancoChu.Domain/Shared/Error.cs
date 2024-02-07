@@ -1,47 +1,29 @@
 ﻿namespace BancoChu.Domain.Shared;
 
-public class Error(string code, string message)
-    : IEquatable<Error>
+public record Error
 {
-    public static readonly Error None = new(string.Empty, string.Empty);
-    public static readonly Error NullValue = new("Error.NullValue", "The specified result value is null.");
+    public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Failure);
+    public static readonly Error NullValue = new("Error.NullValue", "Null value was provided", ErrorType.Failure);
 
-    public string Code { get; } = code;
-
-    public string Message { get; } = message;
-
-    public static implicit operator string(Error error) => error.Code;
-
-    public static bool operator ==(Error? a, Error? b)
+    private Error(string code, string description, ErrorType errorType)
     {
-        if (a is null && b is null)
-        {
-            return true;
-        }
-
-        if (a is null || b is null)
-        {
-            return false;
-        }
-
-        return a.Equals(b);
+        Code = code;
+        Description = description;
+        Type = errorType;
     }
 
-    public static bool operator !=(Error? a, Error? b) => !(a == b);
+    public string Code { get; }
 
-    public virtual bool Equals(Error? other)
-    {
-        if (other is null)
-        {
-            return false;
-        }
+    public string Description { get; }
 
-        return Code == other.Code && Message == other.Message;
-    }
+    public ErrorType Type { get; }
 
-    public override bool Equals(object? obj) => obj is Error error && Equals(error);
+    public static Error NotFound(string code, string description) =>
+        new(code, description, ErrorType.NotFound);
 
-    public override int GetHashCode() => HashCode.Combine(Code, Message);
+    public static Error Validation(string code, string description) =>
+        new(code, description, ErrorType.Validation);
 
-    public override string ToString() => Code;
+    public static Error Failure(string code, string description) =>
+        new(code, description, ErrorType.Failure);
 }
