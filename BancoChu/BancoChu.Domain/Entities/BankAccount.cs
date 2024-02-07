@@ -4,7 +4,7 @@ namespace BancoChu.Domain.Entities;
 
 public sealed class BankAccount : BaseEntity
 {
-    internal BankAccount(Guid id,
+    public BankAccount(Guid id,
         int branchCode,
         int currentAccountNumber,
         int accountBalance) : base(id)

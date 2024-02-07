@@ -4,7 +4,8 @@ namespace BancoChu.Domain.Entities;
 
 public sealed class ApplicationUser : BaseEntity
 {
-    internal ApplicationUser(Guid id,
+    public ApplicationUser(
+        Guid id,
         string email) : base(id)
     {
         Email = email;

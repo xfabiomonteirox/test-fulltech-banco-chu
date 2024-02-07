@@ -4,7 +4,7 @@ namespace BancoChu.Domain.Entities
 {
     public sealed class MoneyTransfer : BaseEntity
     {
-        internal MoneyTransfer(Guid id,
+        public MoneyTransfer(Guid id,
             decimal amount,
             Guid accountId,
             string description,
