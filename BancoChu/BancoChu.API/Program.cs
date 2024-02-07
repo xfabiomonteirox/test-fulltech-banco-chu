@@ -1,4 +1,5 @@
 using BancoChu.API;
+using BancoChu.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

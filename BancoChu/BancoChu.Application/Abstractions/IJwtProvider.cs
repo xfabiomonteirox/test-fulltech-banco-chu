@@ -1,4 +1,4 @@
-﻿using BancoChu.Domain.Entities;
+﻿using BancoChu.Domain.Entities.ApplicationUsers;
 
 namespace BancoChu.Application.Abstractions;
 

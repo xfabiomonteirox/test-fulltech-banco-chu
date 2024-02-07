@@ -1,5 +1,5 @@
 ﻿using BancoChu.Application.Abstractions;
-using BancoChu.Domain.Entities;
+using BancoChu.Domain.Entities.ApplicationUsers;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

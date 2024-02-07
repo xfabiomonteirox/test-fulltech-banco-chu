@@ -1,4 +1,4 @@
-﻿using BancoChu.Domain.Entities;
+﻿using BancoChu.Domain.Entities.ApplicationUsers;
 using BancoChu.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 

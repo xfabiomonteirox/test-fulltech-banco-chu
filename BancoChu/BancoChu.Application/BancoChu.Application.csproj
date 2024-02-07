@@ -22,9 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BankAccounts\Commands\" />
-    <Folder Include="BankAccounts\Queries\" />
-    <Folder Include="Users\" />
+    <Folder Include="BankAccount\Commands\" />
+    <Folder Include="MoneyTransfer\Queries\" />
   </ItemGroup>
 
 </Project>

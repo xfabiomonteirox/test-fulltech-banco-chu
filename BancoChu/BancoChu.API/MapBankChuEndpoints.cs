@@ -1,4 +1,5 @@
-﻿using BancoChu.Application.Authentication;
+﻿using BancoChu.API.Extensions;
+using BancoChu.Application.Authentication.Commands;
 using BancoChu.Domain.Shared;
 using MediatR;
 
@@ -12,10 +13,10 @@ public static class BankChuMapEndpoints
             IMediator mediator,
             string email) =>
         {
-            Result<string> token = await mediator.Send(new AuthenticationCommand(email));
-            return token.IsSuccess
-                ? Results.Created(string.Empty, token.Value)
-                : Results.BadRequest(token.Error);
+            Result<string> result = await mediator.Send(new AuthenticationCommand(email));
+            return result.IsSuccess
+                ? Results.Created(string.Empty, result.Value)
+                : result.ToProblemDetails();
         });
     }
 }

@@ -1,6 +1,4 @@
-﻿using BancoChu.Domain.Entities.Base;
-
-namespace BancoChu.Domain.Entities;
+﻿namespace BancoChu.Domain.Entities.BankAccounts;
 
 public sealed class BankAccount : BaseEntity
 {

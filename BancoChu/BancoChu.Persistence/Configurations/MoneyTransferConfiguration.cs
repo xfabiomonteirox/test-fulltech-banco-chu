@@ -1,4 +1,5 @@
-﻿using BancoChu.Domain.Entities;
+﻿using BancoChu.Domain.Entities.BankAccounts;
+using BancoChu.Domain.Entities.MoneyTransfers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
