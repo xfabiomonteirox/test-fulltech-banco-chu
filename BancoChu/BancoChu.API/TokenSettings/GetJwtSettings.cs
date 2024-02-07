@@ -3,8 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace BancoChu.API.TokenSettings;
 
-public class GetJwtSettings(IConfiguration configuration)
-     : IConfigureOptions<JwtOptions>
+public class GetJwtSettings(IConfiguration configuration) : IConfigureOptions<JwtOptions>
 {
     private const string SectionName = "Jwt";
     private readonly IConfiguration _configuration = configuration;

@@ -4,19 +4,17 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace BancoChu.API.TokenSettings
-{
-    public class JwtOptionsSettings(IOptions<JwtOptions> jwtOptions)
-        : IPostConfigureOptions<JwtBearerOptions>
-    {
-        private readonly JwtOptions _jwtOptions = jwtOptions.Value;
+namespace BancoChu.API.TokenSettings;
 
-        public void PostConfigure(string? name, JwtBearerOptions options)
-        {
-            options.TokenValidationParameters.ValidIssuer = _jwtOptions.Issuer;
-            options.TokenValidationParameters.ValidAudience = _jwtOptions.Audience;
-            options.TokenValidationParameters.IssuerSigningKey =
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
-        }
+public class JwtOptionsSettings(IOptions<JwtOptions> jwtOptions) : IPostConfigureOptions<JwtBearerOptions>
+{
+    private readonly JwtOptions _jwtOptions = jwtOptions.Value;
+
+    public void PostConfigure(string? name, JwtBearerOptions options)
+    {
+        options.TokenValidationParameters.ValidIssuer = _jwtOptions.Issuer;
+        options.TokenValidationParameters.ValidAudience = _jwtOptions.Audience;
+        options.TokenValidationParameters.IssuerSigningKey =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
     }
 }
