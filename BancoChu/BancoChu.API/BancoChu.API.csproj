@@ -18,10 +18,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Scrutor" Version="4.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BancoChu.Application\BancoChu.Application.csproj" />
     <ProjectReference Include="..\BancoChu.Infrastructure\BancoChu.Infrastructure.csproj" />
     <ProjectReference Include="..\BancoChu.Persistence\BancoChu.Persistence.csproj" />
   </ItemGroup>
