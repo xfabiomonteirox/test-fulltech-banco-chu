@@ -4,15 +4,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BancoChu.Persistence.Configurations;
 
-internal sealed class ApplicationUserConfiguration
+public sealed class ApplicationUserConfiguration
     : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
-        builder.ToTable(nameof(ApplicationUser));
-
         builder.HasKey(x => x.Id);
 
-        builder.HasIndex(x => x.Email).IsUnique();
+        builder.HasData(new
+        {
+            Id = Guid.NewGuid(),
+            Email = "test@test.com.br"
+        });
     }
 }
