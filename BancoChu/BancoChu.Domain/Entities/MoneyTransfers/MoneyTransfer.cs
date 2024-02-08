@@ -5,14 +5,15 @@ namespace BancoChu.Domain.Entities.MoneyTransfers;
 public sealed class MoneyTransfer : BaseEntity
 {
     public MoneyTransfer(Guid id,
-        decimal amount,
         Guid accountId,
+        decimal amount,
+        DateTime madeOn,
         string description,
         string destination) : base(id)
     {
         Amount = amount;
-        MadeOn = DateTime.Now;
         AccountId = accountId;
+        MadeOn = madeOn;
         Description = description;
         Destination = destination;
         Destination = destination;
