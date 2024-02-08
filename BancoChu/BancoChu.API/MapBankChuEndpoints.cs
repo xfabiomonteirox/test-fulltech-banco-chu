@@ -54,7 +54,8 @@ public static class BankChuMapEndpoints
                 ? Results.Ok(result.Value)
                 : result.ToProblemDetails();
         })
-            .Produces<BankStatamentResponse>(); ;
+            .Produces<BankStatamentResponse>()
+            .RequireAuthorization();
 
         app.MapPost("v1/transfer", async (
             IMediator mediator,
