@@ -1,4 +1,4 @@
-﻿namespace BancoChu.Domain.Entities.Base;
+﻿namespace BancoChu.Domain.Entities;
 
 public abstract class BaseEntity
 {
