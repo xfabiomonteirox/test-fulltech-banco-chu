@@ -8,16 +8,20 @@ namespace BancoChu.Application.MoneyTransfer.Commands;
 internal sealed class CreateMoneyTransferCommandHandler(
     IUnitOfWork unitOfWork,
     IMoneyTransferRepository moneyTransferRepository,
-    IBankAccountRepository bankAccountRepository
-    )
+    IBankAccountRepository bankAccountRepository,
+    IBrazilHolidaysService brazilHolidaysService)
     : ICommandHandler<CreateMoneyTransferCommand, Guid>
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IMoneyTransferRepository _moneyTransferRepository = moneyTransferRepository;
     private readonly IBankAccountRepository _bankAccountRepository = bankAccountRepository;
+    private readonly IBrazilHolidaysService _brazilHolidaysService = brazilHolidaysService;
 
     public async Task<Result<Guid>> Handle(CreateMoneyTransferCommand request, CancellationToken cancellationToken)
     {
+        if (await _brazilHolidaysService.IsHolidayAsync(request.MadeOn, cancellationToken))
+            return Result.Failure<Guid>(MoneyTransferErrors.NotAllowedBrazilHoliday());
+
         var bankAccount = await _bankAccountRepository
             .GetByBranchCodeAndAccountNumberAsync(request.BranchCode, request.AccountNumber, cancellationToken);
 
