@@ -2,6 +2,7 @@
 using BancoChu.Domain.Repositories;
 using BancoChu.Persistence;
 using BancoChu.Persistence.Repositories;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -60,6 +61,8 @@ public static class DependencyInjection
     {
         services.AddMediatR(config =>
             config.RegisterServicesFromAssembly(Application.AssemblyReference.Assembly));
+
+        services.AddValidatorsFromAssembly(Application.AssemblyReference.Assembly);
 
         return services;
     }

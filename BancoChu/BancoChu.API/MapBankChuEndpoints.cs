@@ -4,6 +4,7 @@ using BancoChu.Application.BankAccount.Commands;
 using BancoChu.Application.MoneyTransfer.Commands;
 using BancoChu.Application.MoneyTransfer.Queries;
 using BancoChu.Domain.Shared;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +25,14 @@ public static class BankChuMapEndpoints
         });
 
         app.MapPost("v1/account", async (
-            IMediator mediator,
-            CreateBankAccountCommand request) =>
+            CreateBankAccountCommand request,
+            IValidator<CreateBankAccountCommand> validator,
+            IMediator mediator) =>
         {
+            var command = await validator.ValidateAsync(request);
+            if (!command.IsValid)
+                return Results.ValidationProblem(command.ToDictionary());
+
             Result<Guid> result = await mediator.Send(new CreateBankAccountCommand(
                 request.BranchCode,
                 request.CurrentAccountNumber,
@@ -58,9 +64,14 @@ public static class BankChuMapEndpoints
             .RequireAuthorization();
 
         app.MapPost("v1/transfer", async (
-            IMediator mediator,
-            CreateMoneyTransferCommand request) =>
+            CreateMoneyTransferCommand request,
+            IValidator<CreateMoneyTransferCommand> validator,
+            IMediator mediator) =>
         {
+            var command = await validator.ValidateAsync(request);
+            if (!command.IsValid)
+                return Results.ValidationProblem(command.ToDictionary());
+
             Result<Guid> result = await mediator.Send(new CreateMoneyTransferCommand(
                 request.BranchCode,
                 request.AccountNumber,
