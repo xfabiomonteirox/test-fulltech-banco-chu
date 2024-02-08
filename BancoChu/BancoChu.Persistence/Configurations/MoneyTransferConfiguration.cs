@@ -12,8 +12,8 @@ public sealed class MoneyTransferConfiguration
     {
         builder.HasKey(x => x.Id);
 
-        builder.HasOne<BankAccount>()
-            .WithMany()
-            .HasForeignKey(x => x.AccountId);
+        builder
+            .HasOne(x => x.BankAccount)
+            .WithMany();
     }
 }

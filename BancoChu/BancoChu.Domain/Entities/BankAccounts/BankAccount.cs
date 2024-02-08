@@ -5,7 +5,7 @@ public sealed class BankAccount : BaseEntity
     public BankAccount(Guid id,
         int branchCode,
         int currentAccountNumber,
-        int accountBalance) : base(id)
+        decimal accountBalance) : base(id)
     {
         BranchCode = branchCode;
         CurrentAccountNumber = currentAccountNumber;
@@ -18,5 +18,5 @@ public sealed class BankAccount : BaseEntity
 
     public int BranchCode { get; set; }
     public int CurrentAccountNumber { get; set; }
-    public int AccountBalance { get; set; }
+    public decimal AccountBalance { get; set; }
 }
