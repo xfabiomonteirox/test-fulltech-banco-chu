@@ -1,7 +1,11 @@
 ﻿using BancoChu.API.Extensions;
 using BancoChu.Application.Authentication.Commands;
+using BancoChu.Application.BankAccount.Commands;
+using BancoChu.Application.MoneyTransfer.Commands;
+using BancoChu.Application.MoneyTransfer.Queries;
 using BancoChu.Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BancoChu.API;
 
@@ -18,5 +22,57 @@ public static class BankChuMapEndpoints
                 ? Results.Created(string.Empty, result.Value)
                 : result.ToProblemDetails();
         });
+
+        app.MapPost("v1/account", async (
+            IMediator mediator,
+            CreateBankAccountCommand request) =>
+        {
+            Result<Guid> result = await mediator.Send(new CreateBankAccountCommand(
+                request.BranchCode,
+                request.CurrentAccountNumber,
+                request.AccountBalance));
+
+            return result.IsSuccess
+                ? Results.Created(string.Empty, result.Value)
+                : result.ToProblemDetails();
+        })
+            .Produces<Guid>()
+            .RequireAuthorization();
+
+        app.MapGet("v1/account/statament", async (
+            IMediator mediator,
+            [AsParameters] GetBankStatementByPeriodQuery request) =>
+        {
+            Result<BankStatamentResponse> result = await mediator
+                .Send(new GetBankStatementByPeriodQuery(
+                    request.BranchCode,
+                    request.AccountNumber,
+                    request.From,
+                    request.To));
+
+            return result.IsSuccess
+                ? Results.Ok(result.Value)
+                : result.ToProblemDetails();
+        })
+            .Produces<BankStatamentResponse>(); ;
+
+        app.MapPost("v1/transfer", async (
+            IMediator mediator,
+            CreateMoneyTransferCommand request) =>
+        {
+            Result<Guid> result = await mediator.Send(new CreateMoneyTransferCommand(
+                request.BranchCode,
+                request.AccountNumber,
+                request.Amount,
+                request.MadeOn,
+                request.Description,
+                request.Destination));
+
+            return result.IsSuccess
+                ? Results.Created(string.Empty, result.Value)
+                : result.ToProblemDetails();
+        })
+            .Produces<Guid>()
+            .RequireAuthorization();
     }
 }
