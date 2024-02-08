@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  bancochu.api:
+    image: ${DOCKER_REGISTRY-}bancochuapi
+    container_name: bancochu.api
+    environment:
+      - TZ=America/Sao_Paulo
+    build:
+      context: .
+      dockerfile: BancoChu.API/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+  
+  bancochu.database:
+    image: postgres:latest
+    container_name: bancochu.database
+    environment:
+      - POSTGRES_DB=bancochu
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/bancochu-db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432    
+      
+  banchochu.cache:
+    image: redis:latest
+    container_name: bancochu.cache
+    restart: always
+    ports:
+      - '6739:6379'   
